@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="player.css">
+</head>
+<body>
+    <div class="player">
+        <div class="avatar">
+            <img src="resources/avatar.jpeg">
+        </div>
+        
+        <p>Amos Wenger's Live Stream</p>
+        <span>Get your own at <a href="http://plugandplay.fm/" target="_blank">plugandplay.fm</a>!</span>
+        
+        <div class="ring">
+            <canvas width="90" height="90" class="hidden"></canvas>
+            <div class="button"></div>
+        </div>
+        <div class="counter">0:00</div>
+        
+        <div class="volume">
+            <img src="resources/volume_low.png">
+            <div class="track">
+                <div class="progress"></div>
+                <div class="handle"></div>
+            </div>
+            <img src="resources/volume_high.png">
+        </div>
+    </div>
+    <script src="player.js"></script>
+    <script>
+        DGPlayer.on('play', function() {
+            // Simulate buffering
+            PlugAndPlay.state = 'buffering';
+            PlugAndPlay.bufferProgress = 0;
+        
+            setTimeout(function() {
+                if (PlugAndPlay.state != 'buffering') return;
+            
+                PlugAndPlay.bufferProgress += 1.5;
+                if (PlugAndPlay.bufferProgress < 100)
+                    setTimeout(arguments.callee, 20);
+                else 
+                    PlugAndPlay.state = 'playing'; // start the timer and hide the buffering indicator
+            }, 20);
+        });
+    
+        DGPlayer.on('pause', function() {
+            PlugAndPlay.state = 'paused';
+        });
+    
+        DGPlayer.on('volume', function(value) {
+            console.log("Volume " + value + "%");
+        });
+    </script>
+</body>
+</html>
