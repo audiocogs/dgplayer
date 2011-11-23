@@ -133,16 +133,39 @@ body {
 .player .counter {
     font-family: "Digital7Mono", Menlo, monospace;
     font-size: 36px;
-    color: #73B3C5;
-    text-shadow: #73B3C5 0 0 5px;
+    color: rgba(115, 179, 197, 0);
     margin-top: 38px;
     text-indent: 10px;
     text-align: right;
+    position: relative;
+    z-index: 1;
+    -webkit-transition: color, text-shadow 300ms;
+    -moz-transition: color, text-shadow 300ms;
+    -o-transition: color, text-shadow 300ms;
+}
+
+.player .counter.visible {
+    color: rgba(115, 179, 197, 1);
+    text-shadow: rgba(115, 179, 197, 1) 0 0 4px;
+}
+
+.player .counter::before {
+    content: "88:88";
+    color: #838a8c;
+    text-shadow: none;
+    position: absolute;
+    right: 0;
+    opacity: 0.15;
+    z-index: -1;
 }
 
 .player .counter.small {
-    font-size: 26px;
+    font-size: 25px;
     margin-top: 43px;
+}
+
+.player .counter.small::before {
+    content: "88:88:88";
 }
 
 .player .volume {
