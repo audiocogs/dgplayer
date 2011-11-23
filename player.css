@@ -137,6 +137,7 @@
     -webkit-transition: color, text-shadow 300ms;
     -moz-transition: color, text-shadow 300ms;
     -o-transition: color, text-shadow 300ms;
+    white-space: nowrap;
 }
 
 .player .counter.visible {

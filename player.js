@@ -59,7 +59,7 @@ DGPlayer = (function() {
     var timer = (function() {
         
         var counter = root.querySelector(".counter"),
-            interval = null, startTime = Date.now();
+            interval = null, startTime = Date.now(), small = false;
             
         function pad(input) {
             return ("00" + input).slice(-2);
@@ -73,8 +73,14 @@ DGPlayer = (function() {
                 
             if (hours > 0) {
                 minutes = pad(minutes);
-                if (hours == 1 && minutes == 0 && seconds == 0)
+                if (!small) {
                     counter.classList.add("small");
+                    small = true;
+                }
+            }
+            else if (small) {
+                counter.classList.remove("small");
+                small = false;
             }
 
             counter.innerHTML = (hours > 0 ? hours + ':' : '') + minutes + ':' + pad(seconds);
@@ -99,9 +105,12 @@ DGPlayer = (function() {
             stop: function() {
                 if (!interval) return;
                 
-                //counter.innerHTML = "0:00";
+                small = false;
                 counter.classList.remove("visible");
-                counter.classList.remove("small");
+                setTimeout(function() {
+                    counter.classList.remove("small");
+                }, 350);
+                
                 clearInterval(interval);
                 interval = null;
             }
