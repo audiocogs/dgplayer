@@ -3,7 +3,7 @@ DGPlayer
 
 ### Interface
 ```java
-interface Player {
+interface DGPlayer {
     on(event, callback);           // event: play, pause, volume 
     off(event, callback);
     

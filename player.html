@@ -31,22 +31,22 @@
     <script>
         DGPlayer.on('play', function() {
             // Simulate buffering
-            PlugAndPlay.state = 'buffering';
-            PlugAndPlay.bufferProgress = 0;
+            DGPlayer.state = 'buffering';
+            DGPlayer.bufferProgress = 0;
         
             setTimeout(function() {
-                if (PlugAndPlay.state != 'buffering') return;
+                if (DGPlayer.state != 'buffering') return;
             
-                PlugAndPlay.bufferProgress += 1.5;
-                if (PlugAndPlay.bufferProgress < 100)
+                DGPlayer.bufferProgress += 1.5;
+                if (DGPlayer.bufferProgress < 100)
                     setTimeout(arguments.callee, 20);
                 else 
-                    PlugAndPlay.state = 'playing'; // start the timer and hide the buffering indicator
+                    DGPlayer.state = 'playing'; // start the timer and hide the buffering indicator
             }, 20);
         });
     
         DGPlayer.on('pause', function() {
-            PlugAndPlay.state = 'paused';
+            DGPlayer.state = 'paused';
         });
     
         DGPlayer.on('volume', function(value) {
