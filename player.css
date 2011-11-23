@@ -138,6 +138,7 @@
     -moz-transition: color, text-shadow 300ms;
     -o-transition: color, text-shadow 300ms;
     white-space: nowrap;
+    line-height: 28px;
 }
 
 .player .counter.visible {
@@ -158,6 +159,7 @@
 .player .counter.small {
     font-size: 25px;
     margin-top: 43px;
+    line-height: 18px;
 }
 
 .player .counter.small::before {
