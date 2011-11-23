@@ -59,37 +59,48 @@ DGPlayer = (function() {
     var timer = (function() {
         
         var counter = root.querySelector(".counter"),
-            interval = null;
+            interval = null, startTime = Date.now();
             
         function pad(input) {
             return ("00" + input).slice(-2);
         }
         
-        return {    
+        function update() {
+            var t = (Date.now() - startTime) / 1000,
+                seconds = Math.floor(t % 60),
+                minutes = Math.floor((t /= 60) % 60),
+                hours = Math.floor((t /= 60) % 24);
+                
+            if (hours > 0) {
+                minutes = pad(minutes);
+                if (hours == 1 && minutes == 0 && seconds == 0)
+                    counter.classList.add("small");
+            }
+
+            counter.innerHTML = (hours > 0 ? hours + ':' : '') + minutes + ':' + pad(seconds);
+        }
+                
+        return {
+            getStartTime: function() {
+                return startTime;
+            },
+            
+            setStartTime: function(time) {
+                startTime = time;
+            },
+            
             start: function() {
                 if (interval) return;
-                
-                var startTime = Date.now();
-                interval = setInterval(function() {
-                    var t = (Date.now() - startTime) / 1000,
-                        seconds = Math.floor(t % 60),
-                        minutes = Math.floor((t /= 60) % 60),
-                        hours = Math.floor((t /= 60) % 24);
-                        
-                    if (hours > 0) {
-                        minutes = pad(minutes);
-                        if (hours == 1 && minutes == 0 && seconds == 0)
-                            counter.classList.add("small");
-                    }
-
-                    counter.innerHTML = (hours > 0 ? hours + ':' : '') + minutes + ':' + pad(seconds);
-                }, 1000);
+                update();
+                counter.classList.add("visible");
+                interval = setInterval(update, 1000);
             },
             
             stop: function() {
                 if (!interval) return;
                 
-                counter.innerHTML = "0:00";
+                //counter.innerHTML = "0:00";
+                counter.classList.remove("visible");
                 counter.classList.remove("small");
                 clearInterval(interval);
                 interval = null;
@@ -272,6 +283,11 @@ DGPlayer = (function() {
         get: function() { 
             return state;
         }
+    });
+    
+    Object.defineProperty(API, "startTime", {
+        get: timer.getStartTime,
+        set: timer.setStartTime
     });
     
     Object.defineProperty(API, "volume", {
