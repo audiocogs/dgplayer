@@ -140,6 +140,11 @@ body {
     text-align: right;
 }
 
+.player .counter.small {
+    font-size: 26px;
+    margin-top: 43px;
+}
+
 .player .volume {
     clear: both;
     -webkit-tap-highlight-color: transparent;

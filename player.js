@@ -75,6 +75,12 @@ DGPlayer = (function() {
                         seconds = Math.floor(t % 60),
                         minutes = Math.floor((t /= 60) % 60),
                         hours = Math.floor((t /= 60) % 24);
+                        
+                    if (hours > 0) {
+                        minutes = pad(minutes);
+                        if (hours == 1 && minutes == 0 && seconds == 0)
+                            counter.classList.add("small");
+                    }
 
                     counter.innerHTML = (hours > 0 ? hours + ':' : '') + minutes + ':' + pad(seconds);
                 }, 1000);
@@ -84,6 +90,7 @@ DGPlayer = (function() {
                 if (!interval) return;
                 
                 counter.innerHTML = "0:00";
+                counter.classList.remove("small");
                 clearInterval(interval);
                 interval = null;
             }
