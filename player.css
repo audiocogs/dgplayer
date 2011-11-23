@@ -8,11 +8,6 @@
     font-style: normal;
 }
 
-body {
-    background: url(resources/bg.png);
-    margin: 0;
-}
-
 .player {
     margin: 70px auto 0 auto;
     padding: 20px;
