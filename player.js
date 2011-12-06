@@ -271,6 +271,13 @@ DGPlayer = (function() {
         }
     };
     
+    if (!Object.defineProperty && Object.prototype.__defineGetter__) {
+        Object.defineProperty = function(obj, prop, config) {
+            config.get && obj.__defineGetter__(prop, config.get);
+            config.set && obj.__defineSetter__(prop, config.set);
+        }
+    }
+    
     Object.defineProperty(API, "bufferProgress", {
         get: progressIndicator.getValue,
         set: progressIndicator.setValue
